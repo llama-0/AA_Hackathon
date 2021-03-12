@@ -10,6 +10,7 @@
   - mapper
   - interactor (if viewModel will grow to be huge)
 - presentation
+  - base (fragment, viewmodel)
   - activity (MainActivity.kt - the only activity in our app)
   - fragment
   - dialog
