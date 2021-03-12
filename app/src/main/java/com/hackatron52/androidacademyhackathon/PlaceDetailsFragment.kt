@@ -9,15 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class DetailPlaceFragment : Fragment() {
+class PlaceDetailsFragment : Fragment() {
 
     companion object {
         private const val PLACE_KEY = "Place_item"
 
-        fun newInstance(id: Int): DetailPlaceFragment {
+        fun newInstance(id: Int): PlaceDetailsFragment {
             val args = Bundle()
             args.putInt(PLACE_KEY, id)
-            val fragment = DetailPlaceFragment()
+            val fragment = PlaceDetailsFragment()
             fragment.arguments = args
             return fragment
         }
@@ -34,7 +34,7 @@ class DetailPlaceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail_place, container, false)
+        return inflater.inflate(R.layout.fragment_place_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +48,7 @@ class DetailPlaceFragment : Fragment() {
         val fabFavorite = view.findViewWithTag<FloatingActionButton>(R.id.fabFavorite)
         val fabRoute = view.findViewById<FloatingActionButton>(R.id.fabRoute)
 
-        fabFavorite.setOnClickListener{
+        fabFavorite.setOnClickListener {
             //TODO
         }
 

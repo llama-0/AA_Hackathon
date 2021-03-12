@@ -11,10 +11,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/titlePlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/titlePlace"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/titlePlace"
@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        tools:text="Title"
+        app:layout_constraintBottom_toTopOf="@id/addressPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recyclerPhoto"
-        app:layout_constraintBottom_toTopOf="@id/addressPlace"/>
+        tools:text="Title" />
 
     <TextView
         android:id="@+id/addressPlace"
@@ -34,11 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        tools:text="Address"
+        app:layout_constraintBottom_toTopOf="@id/descriptionPlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titlePlace"
-        app:layout_constraintBottom_toTopOf="@id/descriptionPlace"/>
+        tools:text="Address" />
 
     <TextView
         android:id="@+id/descriptionPlace"
@@ -46,11 +46,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        tools:text="Description"
+        app:layout_constraintBottom_toTopOf="@id/reviewTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addressPlace"
-        app:layout_constraintBottom_toTopOf="@id/reviewTextView"/>
+        tools:text="Description" />
 
     <TextView
         android:id="@+id/reviewTextView"
@@ -59,10 +59,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Reviews:"
+        app:layout_constraintBottom_toTopOf="@id/recyclerReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionPlace"
-        app:layout_constraintBottom_toTopOf="@id/recyclerReview"/>
+        app:layout_constraintTop_toBottomOf="@id/descriptionPlace" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerReview"
@@ -77,22 +77,22 @@
         android:id="@+id/fabFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_favorite_24"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:elevation="5dp"
+        android:src="@drawable/ic_favorite_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:elevation="5dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabRoute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_alt_route_24"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:elevation="5dp"
+        android:src="@drawable/ic_route_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="5dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
