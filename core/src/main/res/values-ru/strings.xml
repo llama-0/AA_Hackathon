@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_under_development">В разработке</string>
+    <string name="text_error_message">Не удалось загрузить данные</string>
+    <string name="text_empty_list">Список пуст</string>
+    <string name="action_retry">Повторить</string>
+</resources>

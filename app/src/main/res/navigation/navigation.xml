@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_radar"
+    app:startDestination="@id/navigation_map">
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.hackatron52.androidacademyhackathon.presentations.fragments.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map" />
+
+    <!--    TODO поменять name у фрагмента как добавите фрагмент-->
+    <fragment
+        android:id="@+id/navigation_favorites"
+        android:name="com.hackatron52.androidacademyhackathon.presentations.fragments.MapFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites" />
+
+    <!--    TODO поменять name у фрагмента как добавите фрагмент-->
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.hackatron52.androidacademyhackathon.presentations.fragments.MapFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_history" />
+</navigation>
