@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidAcademyHackathon</string>
+    <string name="enter_feedback">Enter your feedback here</string>
+    <string name="btn_send_feedback">Send</string>
+    <string name="enter_feedback">Enter your feedback here</string>
+    <string name="tvPlaceTitle">Enter your feedback here</string>
+    <string name="tvPlaceAddress">Enter your feedback here</string>
+    <string name="tvPlaceRating">Enter your feedback here</string>
 </resources>
