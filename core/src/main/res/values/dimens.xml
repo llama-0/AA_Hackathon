@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_touchable_area">48dp</dimen>
+    <dimen name="size_small_icon">24dp</dimen>
+    <dimen name="padding_touchable_icon">12dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+</resources>
