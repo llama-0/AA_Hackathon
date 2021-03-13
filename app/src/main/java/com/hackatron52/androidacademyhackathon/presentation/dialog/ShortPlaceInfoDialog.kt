@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBinding
+import com.hackatron52.androidacademyhackathon.databinding.PlaceBottomSheetBinding
 import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import com.hackatron52.androidacademyhackathon.presentation.viewmodel.ShortPlaceInfoViewModel
 import kotlinx.coroutines.flow.collect
@@ -17,14 +17,14 @@ import kotlinx.coroutines.flow.collect
 class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
     private val shortPlaceInfoViewModel: ShortPlaceInfoViewModel by viewModels()
-    private var binding: ShortPlacesInfoBinding? = null
+    private var binding: PlaceBottomSheetBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return ShortPlacesInfoBinding.inflate(inflater, container, false).also {
+        return PlaceBottomSheetBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
     }
@@ -51,7 +51,6 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
     private fun showPlaceShortInfo(shortInfo: PlaceDetails) {
         binding?.apply {
-            tvPlaceAddress.text = shortInfo.formatted_address
             tvPlaceTitle.text = shortInfo.name
             tvPlaceRating.text = shortInfo.rating.toString()
             shortInfo.photos.firstOrNull()?.let {
