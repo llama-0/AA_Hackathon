@@ -1,8 +1,10 @@
 package com.hackatron52.androidacademyhackathon.di
 
+import com.google.gson.Gson
 import com.hackatron52.androidacademyhackathon.BuildConfig
 import com.hackatron52.androidacademyhackathon.data.network.PlacesApi
 import com.hackatron52.androidacademyhackathon.data.network.interceptors.MapsApiKeyInterceptor
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,7 +18,8 @@ object NetworkDependencyProvider {
     private val retrofit = Retrofit.Builder()
         .client(provideOkHttpClient())
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(Gson()))
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
     private val PLACES_API: PlacesApi = retrofit.create(PlacesApi::class.java)
