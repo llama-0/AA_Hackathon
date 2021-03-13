@@ -1,14 +1,14 @@
-package com.hackatron52.androidacademyhackathon.presentations.adapter
+package com.hackatron52.androidacademyhackathon.presentation.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.hackatron52.androidacademyhackathon.presentations.model.HistoryDetail
+import com.hackatron52.androidacademyhackathon.presentation.model.Place
 
-class HistoryDiffUtil : DiffUtil.ItemCallback<HistoryDetail>() {
-    override fun areItemsTheSame(oldItem: HistoryDetail, newItem: HistoryDetail): Boolean =
-        oldItem.name == newItem.name
+class HistoryDiffUtil : DiffUtil.ItemCallback<Place>() {
+    override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean =
+        oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: HistoryDetail, newItem: HistoryDetail): Boolean =
+    override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean =
         oldItem.address == newItem.address &&
                 oldItem.rating == newItem.rating &&
-                oldItem.image == newItem.image
+                oldItem.photo == newItem.photo
 }

@@ -1,7 +1,5 @@
-package com.hackatron52.androidacademyhackathon.presentations.model
-
-import com.hackatron52.androidacademyhackathon.presentation.model.ScreenState
+package com.hackatron52.androidacademyhackathon.presentation.model
 
 class HistoryScreenState(
-    val historyList: List<HistoryDetail> = emptyList()
+    val historyList: List<Place> = emptyList()
 ) : ScreenState

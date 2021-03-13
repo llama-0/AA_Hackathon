@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.presentation.fragment.BaseFragment
-import com.hackatron52.androidacademyhackathon.presentation.fragments.model.PlaceDetailsCommand
-import com.hackatron52.androidacademyhackathon.presentation.fragments.model.PlaceDetailsScreenState
-import com.hackatron52.androidacademyhackathon.presentation.fragments.viewmodel.PlaceDetailsViewModel
+import com.hackatron52.androidacademyhackathon.presentation.command.PlaceDetailsCommand
+import com.hackatron52.androidacademyhackathon.presentation.model.PlaceDetailsScreenState
+import com.hackatron52.androidacademyhackathon.presentation.viewmodel.PlaceDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

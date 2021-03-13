@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.MapFragment"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.HistoryFragment"
         android:label="History"
         tools:layout="@layout/fragment_history" />
 </navigation>
