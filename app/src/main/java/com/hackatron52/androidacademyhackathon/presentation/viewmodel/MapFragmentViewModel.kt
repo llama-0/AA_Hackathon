@@ -32,10 +32,10 @@ class MapFragmentViewModel @Inject constructor() :
 
     suspend fun updateNearbyPlaces(
         location: Location,
-        types: String,
+        type: String,
         radius: Int
     ) {
-        _nearbyPlaces.emitAll(placesRepository.observeNearbyPlaces(location, types, radius))
+        _nearbyPlaces.emitAll(placesRepository.observeNearbyPlaces(location, type, radius))
     }
 
     fun updateUserLocation(fusedLocationProviderClient: FusedLocationProviderClient) {

@@ -1,5 +1,9 @@
 package com.hackatron52.androidacademyhackathon.presentation.model
 
-import com.hackatron52.androidacademyhackathon.presentation.model.ScreenState
+class PlaceDetailsScreenState(
+    val placeId: String? = null,
+    val place: Place? = null
+) : ScreenState {
+    val isPlaceReadyToShow: Boolean = place != null
 
-class PlaceDetailsScreenState() : ScreenState {}
+}

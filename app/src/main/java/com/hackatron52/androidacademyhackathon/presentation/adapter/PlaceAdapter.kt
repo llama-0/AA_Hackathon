@@ -7,7 +7,9 @@ import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBindin
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
 import com.hackatron52.androidacademyhackathon.presentation.viewholder.PlaceViewHolder
 
-class PlaceAdapter : ListAdapter<Place, PlaceViewHolder>(PlaceDiffUtil()) {
+class PlaceAdapter(
+    private val onPlaceClicked: (Place) -> Unit
+) : ListAdapter<Place, PlaceViewHolder>(PlaceDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -17,6 +19,6 @@ class PlaceAdapter : ListAdapter<Place, PlaceViewHolder>(PlaceDiffUtil()) {
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) =
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onPlaceClicked)
 
 }

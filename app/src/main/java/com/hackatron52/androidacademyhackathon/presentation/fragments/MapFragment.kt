@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.FirebaseDatabase
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.domain.models.Place
+import com.hackatron52.androidacademyhackathon.presentation.dialog.ShortPlaceInfoDialog
 import com.hackatron52.androidacademyhackathon.presentation.viewmodel.MapFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -75,7 +76,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         lifecycleScope.launchWhenStarted {
             mapFragmentViewModel.nearbyPlaces.collect { lce ->
                 if (lce.isFinishedSuccessfully) {
-                    Log.d("TTT", "test")
                     lce.content?.let(::showPlaces)
                 } else {
                     lce.error?.printStackTrace()
@@ -119,14 +119,25 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                 )
                 val db = FirebaseDatabase.getInstance().getReference("Places")
                 db.updateChildren(mapOf(place.placeID to place))
+                val marker =
+                    MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
+                googleMap.addMarker(marker)
+            }
+            googleMap.setOnMarkerClickListener {
+                showPlaceInfo(it.snippet)
+                true
             }
         }
+    }
+
+    private fun showPlaceInfo(placeId: String) {
+        ShortPlaceInfoDialog.newInstance(placeId).show(parentFragmentManager, placeId)
     }
 
     companion object {
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private const val DEFAULT_ZOOM = 10f
-        private const val DEFAULT_PLACE_TYPES = "restaurant,cafe,bar"
-        private const val DEFAULT_PLACE_RADIUS = 1000
+        private const val DEFAULT_PLACE_TYPES = "restaurant"
+        private const val DEFAULT_PLACE_RADIUS = 10000
     }
 }
