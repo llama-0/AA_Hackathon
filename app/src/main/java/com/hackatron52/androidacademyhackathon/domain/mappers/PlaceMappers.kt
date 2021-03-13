@@ -65,7 +65,11 @@ class PhotoMapper {
 
     fun toDomainModel(photos: List<PhotoDto>?): List<Photo> {
         return photos?.map {
-            Photo(it.height, it.photoReference, it.width)
+            Photo(it.height, url(it.photoReference), it.width)
         } ?: emptyList()
+    }
+
+    private fun url(photoReference: String): String {
+        return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=$photoReference&key=AIzaSyAwAEbJey1aDAd-7J6xWh08gVaypu12McM"
     }
 }

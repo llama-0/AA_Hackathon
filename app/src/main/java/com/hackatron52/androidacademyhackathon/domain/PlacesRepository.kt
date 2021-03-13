@@ -17,19 +17,20 @@ class PlacesRepository(
 
     suspend fun observeNearbyPlaces(
         location: Location,
-        types: String,
+        type: String,
         radius: Int
     ): Flow<Lce<List<Place>>> =
         withContext(Dispatchers.IO) {
             safeApiCall {
                 val places = placesApi.getNearbyPlaces(
                     "${location.latitude},${location.longitude}",
-                    types,
+                    type,
                     radius
                 ).places
 
                 places.map { placeMapper.toDomainModel(it) }
-                    .sortedByDescending { it.userRatingsTotal }
+                    .filter { it.openingHours?.openNow ?: false }
+                    .sortedByDescending { it.rating }
                     .subList(0, 10.coerceAtMost(places.size))
             }
         }
