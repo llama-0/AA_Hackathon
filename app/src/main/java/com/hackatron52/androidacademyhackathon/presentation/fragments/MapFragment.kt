@@ -17,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.FirebaseDatabase
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.domain.models.Place
 import com.hackatron52.androidacademyhackathon.presentation.dialog.ShortPlaceInfoDialog
@@ -113,6 +114,11 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         mapFragment?.getMapAsync { googleMap ->
             places.forEach { place ->
                 val placeLocation = LatLng(place.location.lat, place.location.lng)
+                googleMap.addMarker(
+                    MarkerOptions().title(place.name).position(placeLocation)
+                )
+                val db = FirebaseDatabase.getInstance().getReference("Places")
+                db.updateChildren(mapOf(place.placeID to place))
                 val marker =
                     MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
                 googleMap.addMarker(marker)

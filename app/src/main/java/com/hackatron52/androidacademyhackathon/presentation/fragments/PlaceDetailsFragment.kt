@@ -49,7 +49,6 @@ class PlaceDetailsFragment :
     override fun executeCommand(command: PlaceDetailsCommand) {
         when (command) {
             is PlaceDetailsCommand.OpenMapWithRoute -> showUnderdevelopmentMessage()
-            is PlaceDetailsCommand.AddPlaceToFavorites -> showUnderdevelopmentMessage()
         }
     }
 }
