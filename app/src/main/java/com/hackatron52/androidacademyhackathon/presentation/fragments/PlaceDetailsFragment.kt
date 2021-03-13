@@ -21,8 +21,9 @@ class PlaceDetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPlaceDetailBinding.bind(view)
+        setHasOptionsMenu(true)
 
+        binding = FragmentPlaceDetailBinding.bind(view)
         binding?.fabFavorite?.setOnClickListener { viewModel.onFavoriteClicked() }
         binding?.fabRoute?.setOnClickListener { viewModel.onRouteClicked() }
     }
