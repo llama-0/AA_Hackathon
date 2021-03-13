@@ -2,6 +2,7 @@ package com.hackatron52.androidacademyhackathon.di
 
 import com.google.gson.Gson
 import com.hackatron52.androidacademyhackathon.BuildConfig
+import com.hackatron52.androidacademyhackathon.data.network.PlaceDetailsApi
 import com.hackatron52.androidacademyhackathon.data.network.PlacesApi
 import com.hackatron52.androidacademyhackathon.data.network.interceptors.MapsApiKeyInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -24,8 +25,14 @@ object NetworkDependencyProvider {
 
     private val PLACES_API: PlacesApi = retrofit.create(PlacesApi::class.java)
 
+    private val PLACE_DETAILS_API: PlaceDetailsApi = retrofit.create(PlaceDetailsApi::class.java)
+
     fun provideMapsApi(): PlacesApi {
         return PLACES_API
+    }
+
+    fun providePlaceDetailsApi(): PlaceDetailsApi {
+        return PLACE_DETAILS_API
     }
 
     private fun provideOkHttpClient(): OkHttpClient {
