@@ -1,4 +1,4 @@
-package com.hackatron52.androidacademyhackathon.presentations.viewmodels
+package com.hackatron52.androidacademyhackathon.presentation.viewmodel
 
 import android.location.Location
 import android.os.Looper

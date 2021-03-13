@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.domain.models.Place
-import com.hackatron52.androidacademyhackathon.presentations.viewmodels.MapFragmentViewModel
+import com.hackatron52.androidacademyhackathon.presentation.viewmodel.MapFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
