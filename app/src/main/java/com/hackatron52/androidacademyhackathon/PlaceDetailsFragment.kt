@@ -44,7 +44,7 @@ class PlaceDetailsFragment : Fragment() {
         val placeName = view.findViewById<TextView>(R.id.titlePlace)
         val addressPlace = view.findViewById<TextView>(R.id.addressPlace)
         val descriptionPlace = view.findViewById<TextView>(R.id.descriptionPlace)
-        val recyclerReview = view.findViewById<TextView>(R.id.recyclerReview)
+        val recyclerReview = view.findViewById<RecyclerView>(R.id.recyclerReview)
         val fabFavorite = view.findViewWithTag<FloatingActionButton>(R.id.fabFavorite)
         val fabRoute = view.findViewById<FloatingActionButton>(R.id.fabRoute)
 
