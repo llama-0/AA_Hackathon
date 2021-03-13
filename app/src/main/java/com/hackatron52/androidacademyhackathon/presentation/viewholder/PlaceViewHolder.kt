@@ -9,7 +9,7 @@ class PlaceViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(place: Place, onPlaceClicked: (Place) -> Unit) {
-        with(binding) {
+        with(binding.cardContent) {
             root.setOnClickListener { onPlaceClicked(place) }
             tvPlaceAddress.text = place.address
             tvPlaceTitle.text = place.name
