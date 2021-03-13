@@ -3,7 +3,7 @@ package com.hackatron52.androidacademyhackathon.presentation.adapter
 import androidx.recyclerview.widget.DiffUtil
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
 
-class HistoryDiffUtil : DiffUtil.ItemCallback<Place>() {
+class PlaceDiffUtil : DiffUtil.ItemCallback<Place>() {
     override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean =
         oldItem.id == newItem.id
 

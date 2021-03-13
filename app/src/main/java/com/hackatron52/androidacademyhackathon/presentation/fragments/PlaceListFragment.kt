@@ -2,27 +2,25 @@ package com.hackatron52.androidacademyhackathon.presentation.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.FragmentHistoryBinding
-import com.hackatron52.androidacademyhackathon.presentation.adapter.HistoryAdapter
-import com.hackatron52.androidacademyhackathon.presentation.command.HistoryCommand
+import com.hackatron52.androidacademyhackathon.presentation.adapter.PlaceAdapter
+import com.hackatron52.androidacademyhackathon.presentation.command.PlaceListCommand
 import com.hackatron52.androidacademyhackathon.presentation.fragment.BaseFragment
-import com.hackatron52.androidacademyhackathon.presentation.model.HistoryScreenState
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
-import com.hackatron52.androidacademyhackathon.presentations.viewmodel.HistoryViewModel
+import com.hackatron52.androidacademyhackathon.presentation.model.PlaceListScreenState
+import com.hackatron52.androidacademyhackathon.presentations.viewmodel.PlaceListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HistoryFragment :
-    BaseFragment<HistoryScreenState, HistoryCommand, HistoryViewModel>(
+class PlaceListFragment :
+    BaseFragment<PlaceListScreenState, PlaceListCommand, PlaceListViewModel>(
         R.layout.fragment_history,
-        HistoryViewModel::class.java
+        PlaceListViewModel::class.java
     ) {
 
-    private var adapter: HistoryAdapter? = null
+    private var adapter: PlaceAdapter? = null
     private var binding: FragmentHistoryBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,8 +29,9 @@ class HistoryFragment :
         setupAdapter()
         showBottomNavigationView()
 
+        val arguments = PlaceListFragmentArgs.fromBundle(requireArguments())
         if (savedInstanceState == null) {
-            viewModel.init()
+            viewModel.init(arguments.type)
         }
     }
 
@@ -43,15 +42,15 @@ class HistoryFragment :
     }
 
     private fun setupAdapter() {
-        adapter = HistoryAdapter()
+        adapter = PlaceAdapter()
         binding?.rvHistoryList?.adapter = adapter
     }
 
-    override fun renderView(model: HistoryScreenState) {
+    override fun renderView(model: PlaceListScreenState) {
         updateList(model.historyList)
     }
 
-    override fun executeCommand(command: HistoryCommand) {
+    override fun executeCommand(command: PlaceListCommand) {
         super.executeCommand(command)
     }
 
