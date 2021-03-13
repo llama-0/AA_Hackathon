@@ -9,4 +9,5 @@
     <string name="menu_title_map">Карта</string>
     <string name="menu_title_favorites">Избранное</string>
     <string name="menu_title_history">История</string>
+    <string name="btn_add_review">Отзыв</string>
 </resources>

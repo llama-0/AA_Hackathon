@@ -27,7 +27,7 @@ class PlaceDetailsViewModel :
 
     fun onFavoriteClicked() {
         Log.d("TAG", "onFavoriteClicked: ${model.placeId}")
-        with (model) {
+        with(model) {
             placeId?.let {
                 db.getReference("Favorites")
                     .updateChildren(mapOf(placeId.toString() to place))
@@ -38,6 +38,5 @@ class PlaceDetailsViewModel :
     fun onRouteClicked() {
         executeCommand(PlaceDetailsCommand.OpenMapWithRoute)
     }
-
 
 }
