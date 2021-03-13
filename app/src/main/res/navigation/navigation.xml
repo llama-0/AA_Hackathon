@@ -11,16 +11,25 @@
         android:label="Map"
         tools:layout="@layout/fragment_map" />
 
-    <!--    TODO поменять name у фрагмента как добавите фрагмент-->
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.MapFragment"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.PlaceListFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+        <argument
+            android:name="type"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.HistoryFragment"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.PlaceListFragment"
         android:label="History"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history">
+        <argument
+            android:name="type"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
 </navigation>

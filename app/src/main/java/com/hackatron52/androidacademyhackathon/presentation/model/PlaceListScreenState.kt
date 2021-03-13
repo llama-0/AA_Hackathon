@@ -1,5 +1,5 @@
 package com.hackatron52.androidacademyhackathon.presentation.model
 
-class HistoryScreenState(
+class PlaceListScreenState(
     val historyList: List<Place> = emptyList()
 ) : ScreenState

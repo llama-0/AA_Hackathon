@@ -5,18 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBinding
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
-import com.hackatron52.androidacademyhackathon.presentation.viewholder.HistoryViewHolder
+import com.hackatron52.androidacademyhackathon.presentation.viewholder.PlaceViewHolder
 
-class HistoryAdapter : ListAdapter<Place, HistoryViewHolder>(HistoryDiffUtil()) {
+class PlaceAdapter : ListAdapter<Place, PlaceViewHolder>(PlaceDiffUtil()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ShortPlacesInfoBinding
             .inflate(layoutInflater, parent, false)
-        return HistoryViewHolder(binding)
+        return PlaceViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) =
         holder.bind(getItem(position))
 
 }

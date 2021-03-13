@@ -1,15 +1,16 @@
 package com.hackatron52.androidacademyhackathon.presentations.viewmodel
 
-import com.hackatron52.androidacademyhackathon.presentation.command.HistoryCommand
-import com.hackatron52.androidacademyhackathon.presentation.model.HistoryScreenState
+import com.hackatron52.androidacademyhackathon.presentation.PlaceListStatus
+import com.hackatron52.androidacademyhackathon.presentation.command.PlaceListCommand
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
+import com.hackatron52.androidacademyhackathon.presentation.model.PlaceListScreenState
 import com.hackatron52.androidacademyhackathon.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor() :
-    BaseViewModel<HistoryScreenState, HistoryCommand>(HistoryScreenState()) {
+class PlaceListViewModel @Inject constructor() :
+    BaseViewModel<PlaceListScreenState, PlaceListCommand>(PlaceListScreenState()) {
 
     private val testData = listOf(
         Place("1", "Хлеб и Вино ", "", " Ул Пушкина 1", 4.5, "", true),
@@ -19,15 +20,20 @@ class HistoryViewModel @Inject constructor() :
         Place("5", "Чайхона №1", "", "ул. Петровские Линии, 2/18", 4.5, "", true)
     )
 
-    fun init() {
-        updateScreenState(testData)
+    fun init(listType: Int) {
+        val placeListStatus = PlaceListStatus.getStatusByOrdinalNumber(listType)
+        if (placeListStatus == PlaceListStatus.Favorites) {
+            updateScreenState(testData)
+        } else {
+            updateScreenState(testData.reversed())
+        }
     }
 
     private fun updateScreenState(
         historyList: List<Place> = model.historyList,
         shouldRefreshView: Boolean = true
     ) {
-        model = HistoryScreenState(historyList)
+        model = PlaceListScreenState(historyList)
         if (shouldRefreshView) {
             refreshView()
         }

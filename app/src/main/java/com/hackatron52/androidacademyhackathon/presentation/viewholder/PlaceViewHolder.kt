@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBinding
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
 
-class HistoryViewHolder(
+class PlaceViewHolder(
     val binding: ShortPlacesInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
