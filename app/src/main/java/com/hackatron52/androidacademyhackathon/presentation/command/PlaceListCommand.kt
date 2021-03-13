@@ -2,5 +2,6 @@ package com.hackatron52.androidacademyhackathon.presentation.command
 
 import com.hackatron52.androidacademyhackathon.presentation.navigation.Command
 
-class PlaceListCommand : Command {
+sealed class PlaceListCommand : Command {
+    class ShowPlaceDetail(val id: String) : PlaceListCommand()
 }

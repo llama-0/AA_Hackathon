@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -12,12 +11,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.database.FirebaseDatabase
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.domain.models.Place
 import com.hackatron52.androidacademyhackathon.presentation.dialog.ShortPlaceInfoDialog
@@ -31,29 +31,21 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     private val mapFragmentViewModel: MapFragmentViewModel by viewModels()
 
     private var locationPermissionGranted = false
-    private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-
-    private val locationCallback: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            super.onLocationResult(locationResult)
-            showUserLocation(locationResult.lastLocation)
-        }
-    }
+    private var mapFragment: SupportMapFragment? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestLocationPermission()
-        initLocationRequest()
         initObservers()
 
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
-        val mapFragment = childFragmentManager
+        mapFragment = childFragmentManager
             .findFragmentById(R.id.google_map) as? SupportMapFragment
-        mapFragment?.getMapAsync {
-            googleMap = it
+
+        if (locationPermissionGranted) {
+            mapFragmentViewModel.updateUserLocation(fusedLocationProviderClient)
         }
     }
 
@@ -78,6 +70,9 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     }
 
     private fun initObservers() {
+        mapFragmentViewModel.currentUserLocation.observe(viewLifecycleOwner, { location ->
+            location?.let(::showUserLocation)
+        })
         lifecycleScope.launchWhenStarted {
             mapFragmentViewModel.nearbyPlaces.collect { lce ->
                 if (lce.isFinishedSuccessfully) {
@@ -87,46 +82,6 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        startLocationUpdates()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        stopLocationUpdates()
-    }
-
-    private fun startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener(::showUserLocation)
-        fusedLocationProviderClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
-    }
-
-    private fun stopLocationUpdates() {
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-    }
-
-    private fun initLocationRequest() {
-        locationRequest = LocationRequest.create()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = 500
-        locationRequest.fastestInterval = 500
     }
 
     private fun showUserLocation(location: Location) {
@@ -156,15 +111,22 @@ class MapFragment : Fragment(R.layout.fragment_map) {
     }
 
     private fun showPlaces(places: List<Place>) {
-        places.forEach { place ->
-            val placeLocation = LatLng(place.location.lat, place.location.lng)
-            val marker =
-                MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
-            googleMap.addMarker(marker)
-        }
-        googleMap.setOnMarkerClickListener {
-            showPlaceInfo(it.snippet)
-            true
+        mapFragment?.getMapAsync { googleMap ->
+            places.forEach { place ->
+                val placeLocation = LatLng(place.location.lat, place.location.lng)
+                googleMap.addMarker(
+                    MarkerOptions().title(place.name).position(placeLocation)
+                )
+                val db = FirebaseDatabase.getInstance().getReference("Places")
+                db.updateChildren(mapOf(place.placeID to place))
+                val marker =
+                    MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
+                googleMap.addMarker(marker)
+            }
+            googleMap.setOnMarkerClickListener {
+                showPlaceInfo(it.snippet)
+                true
+            }
         }
     }
 
