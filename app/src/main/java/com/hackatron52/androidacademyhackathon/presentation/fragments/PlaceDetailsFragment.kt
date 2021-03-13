@@ -35,7 +35,14 @@ class PlaceDetailsFragment :
     // Показать остальные поля по аналогии
     override fun renderView(model: PlaceDetailsScreenState) {
         if (model.isPlaceReadyToShow) {
-            binding?.titlePlace?.text = model.place?.name
+            binding?.let {
+                with(it) {
+                    titlePlace.text = model.place?.name
+                    addressPlace.text = model.place?.address
+                    descriptionPlace.text = model.place?.description
+                }
+            }
+
         }
     }
 
