@@ -17,4 +17,6 @@
     <color name="orange_light">#ff833a</color>
     <color name="orange_pale">#ff8841</color>
     <color name="orange_dark">#ac1900</color>
+    <color name="red">#ff3a54</color>
+    <color name="purple_dark">#1a000d</color>
 </resources>
