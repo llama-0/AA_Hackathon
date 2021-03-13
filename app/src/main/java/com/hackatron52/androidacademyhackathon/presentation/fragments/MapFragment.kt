@@ -115,7 +115,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
             places.forEach { place ->
                 val placeLocation = LatLng(place.location.lat, place.location.lng)
                 googleMap.addMarker(
-                    MarkerOptions().title(place.name).position(placeLocation)
+                    MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
                 )
                 val db = FirebaseDatabase.getInstance().getReference("Places")
                 db.updateChildren(mapOf(place.placeID to place))
