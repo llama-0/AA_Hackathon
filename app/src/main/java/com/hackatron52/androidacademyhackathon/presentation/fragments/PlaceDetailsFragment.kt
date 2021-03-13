@@ -1,42 +1,23 @@
 package com.hackatron52.androidacademyhackathon.presentation.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hackatron52.androidacademyhackathon.R
+import com.hackatron52.androidacademyhackathon.presentation.fragment.BaseFragment
+import com.hackatron52.androidacademyhackathon.presentation.fragments.model.PlaceDetailsCommand
+import com.hackatron52.androidacademyhackathon.presentation.fragments.model.PlaceDetailsScreenState
+import com.hackatron52.androidacademyhackathon.presentation.fragments.viewmodel.PlaceDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class PlaceDetailsFragment : Fragment() {
-
-    companion object {
-        private const val PLACE_KEY = "Place_item"
-
-        fun newInstance(id: Int): PlaceDetailsFragment {
-            val args = Bundle()
-            args.putInt(PLACE_KEY, id)
-            val fragment = PlaceDetailsFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        //TODO
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_place_detail, container, false)
-    }
+@AndroidEntryPoint
+class PlaceDetailsFragment :
+    BaseFragment<PlaceDetailsScreenState, PlaceDetailsCommand, PlaceDetailsViewModel>(
+        R.layout.fragment_place_detail,
+        PlaceDetailsViewModel::class.java
+    ) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +36,29 @@ class PlaceDetailsFragment : Fragment() {
 
         fabRoute.setOnClickListener {
             //TODO
+        }
+    }
+
+    override fun renderView(model: PlaceDetailsScreenState) {
+        TODO("Not yet implemented")
+    }
+
+    override fun executeCommand(command: PlaceDetailsCommand) {
+        when (command) {
+            is PlaceDetailsCommand.OpenMapWithRoute -> showUnderdevelopmentMessage()
+            is PlaceDetailsCommand.AddPlaceToFavorites -> showUnderdevelopmentMessage()
+        }
+    }
+
+    companion object {
+        private const val PLACE_KEY = "Place_item"
+
+        fun newInstance(id: Int): PlaceDetailsFragment {
+            val args = Bundle()
+            args.putInt(PLACE_KEY, id)
+            val fragment = PlaceDetailsFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }
