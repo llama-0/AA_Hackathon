@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 //    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'com.google.secrets_gradle_plugin' version '0.5'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -48,6 +49,11 @@ dependencies {
 
     implementation project(':core')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Google Maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
