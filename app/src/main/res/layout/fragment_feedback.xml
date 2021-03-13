@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_alignBaseline="@id/btnSend"
+    >
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
     android:layout_margin="8dp">
 
     <TextView
@@ -13,7 +19,9 @@
         android:layout_margin="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:text="@string/tvGreetingMessage"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/short_places_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +46,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/tvMessageTimeAgo"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/short_places_info"
@@ -48,6 +57,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="188dp"
+        android:layout_marginTop="8dp"
         app:counterEnabled="true"
         app:counterMaxLength="200"
         app:endIconMode="clear_text"
@@ -86,3 +96,4 @@
         tools:text="Send" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

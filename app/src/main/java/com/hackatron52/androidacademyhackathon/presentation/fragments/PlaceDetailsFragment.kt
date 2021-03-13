@@ -26,6 +26,8 @@ class PlaceDetailsFragment :
         binding = FragmentPlaceDetailBinding.bind(view)
         binding?.fabFavorite?.setOnClickListener { viewModel.onFavoriteClicked() }
         binding?.fabRoute?.setOnClickListener { viewModel.onRouteClicked() }
+        binding?.btnAddReview?.setOnClickListener { navController.navigate(R.id.action_navigation_place_detail_to_feedbackFragment) }
+
     }
 
     override fun onDestroyView() {
@@ -52,4 +54,5 @@ class PlaceDetailsFragment :
             is PlaceDetailsCommand.OpenMapWithRoute -> showUnderdevelopmentMessage()
         }
     }
+
 }

@@ -4,8 +4,9 @@
     <string name="enter_feedback">Enter your feedback here</string>
     <string name="btn_send_feedback">Send</string>
     <string name="tvGreetingMessage">Hi! Share your impressions about</string>
-    <string name="tvMessageTimeAgo">You were here %1$d days ago</string>
+    <string name="tvMessageTimeAgo">You were here some times ago</string>
     <string name="menu_title_map">Map</string>
     <string name="menu_title_favorites">Favorites</string>
     <string name="menu_title_history">History</string>
+    <string name="btn_add_review">Review</string>
 </resources>
