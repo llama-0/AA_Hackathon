@@ -1,0 +1,3 @@
+package com.hackatron52.androidacademyhackathon.presentation.model
+
+interface ScreenState

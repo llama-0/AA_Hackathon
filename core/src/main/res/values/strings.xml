@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_under_development">Under development</string>
+    <string name="text_error_message">Failed to load data</string>
+    <string name="text_empty_list">List is empty</string>
+    <string name="action_retry">Retry</string>
+</resources>
