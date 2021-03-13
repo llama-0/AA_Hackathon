@@ -3,7 +3,7 @@ package com.hackatron52.androidacademyhackathon.domain.mappers
 import com.hackatron52.androidacademyhackathon.data.network.models.*
 import com.hackatron52.androidacademyhackathon.domain.models.*
 
-class PlaceMapper(
+class PlaceMapper private constructor(
     private val geometryMapper: GeometryMapper,
     private val openingHoursMapper: OpeningHoursMapper,
     private val photoMapper: PhotoMapper
@@ -25,6 +25,16 @@ class PlaceMapper(
                 userRatingsTotal,
                 vicinity,
                 openingHours?.let { openingHoursMapper.toDomainModel(it) }
+            )
+        }
+    }
+
+    companion object {
+        fun newInstance(): PlaceMapper {
+            return PlaceMapper(
+                GeometryMapper(LocationMapper()),
+                OpeningHoursMapper(),
+                PhotoMapper()
             )
         }
     }
