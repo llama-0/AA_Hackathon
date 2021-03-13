@@ -1,7 +1,10 @@
 package com.hackatron52.androidacademyhackathon.domain.mappers
 
 import com.hackatron52.androidacademyhackathon.data.network.models.*
-import com.hackatron52.androidacademyhackathon.domain.models.*
+import com.hackatron52.androidacademyhackathon.domain.models.Location
+import com.hackatron52.androidacademyhackathon.domain.models.OpeningHours
+import com.hackatron52.androidacademyhackathon.domain.models.Photo
+import com.hackatron52.androidacademyhackathon.domain.models.Place
 
 class PlaceMapper private constructor(
     private val geometryMapper: GeometryMapper,
@@ -12,18 +15,16 @@ class PlaceMapper private constructor(
     fun toDomainModel(placeDto: PlaceDto): Place {
         with(placeDto) {
             return Place(
-                businessStatus,
                 geometryMapper.toDomainModel(geometry),
                 icon,
                 name,
-                photos.map { photoMapper.toDomainModel(it) },
+                photoMapper.toDomainModel(photos),
                 placeID,
                 rating,
                 reference,
                 scope,
                 types,
                 userRatingsTotal,
-                vicinity,
                 openingHours?.let { openingHoursMapper.toDomainModel(it) }
             )
         }
@@ -41,8 +42,8 @@ class PlaceMapper private constructor(
 }
 
 class GeometryMapper(private val locationMapper: LocationMapper) {
-    fun toDomainModel(geometryDto: GeometryDto): Geometry {
-        return Geometry(locationMapper.toDomainModel(geometryDto.location))
+    fun toDomainModel(geometryDto: GeometryDto): Location {
+        return locationMapper.toDomainModel(geometryDto.location)
     }
 }
 
@@ -62,7 +63,9 @@ class OpeningHoursMapper {
 
 class PhotoMapper {
 
-    fun toDomainModel(photoDto: PhotoDto): Photo {
-        return Photo(photoDto.height, photoDto.photoReference, photoDto.width)
+    fun toDomainModel(photos: List<PhotoDto>?): List<Photo> {
+        return photos?.map {
+            Photo(it.height, it.photoReference, it.width)
+        } ?: emptyList()
     }
 }

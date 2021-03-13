@@ -3,12 +3,10 @@ package com.hackatron52.androidacademyhackathon.data.network.models
 import com.google.gson.annotations.SerializedName
 
 data class PlaceDto(
-    @SerializedName("business_status")
-    val businessStatus: String,
     val geometry: GeometryDto,
     val icon: String,
     val name: String,
-    val photos: List<PhotoDto>,
+    val photos: List<PhotoDto>?,
 
     @SerializedName("place_id")
     val placeID: String,
@@ -20,8 +18,6 @@ data class PlaceDto(
 
     @SerializedName("user_ratings_total")
     val userRatingsTotal: Long,
-
-    val vicinity: String,
 
     @SerializedName("opening_hours")
     val openingHours: OpeningHoursDto? = null
