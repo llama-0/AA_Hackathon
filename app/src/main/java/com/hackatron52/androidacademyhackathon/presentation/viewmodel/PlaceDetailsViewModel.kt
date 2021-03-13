@@ -26,11 +26,13 @@ class PlaceDetailsViewModel :
     }
 
     fun onFavoriteClicked() {
-        Log.d("TAG", "onFavoriteClicked: ololo")
-//        with (model) {
-//            db.getReference("Favorites")
-//                .updateChildren(mapOf(placeId to place))
-//        }
+        Log.d("TAG", "onFavoriteClicked: ${model.placeId}")
+        with (model) {
+            placeId?.let {
+                db.getReference("Favorites")
+                    .updateChildren(mapOf(placeId.toString() to place))
+            }
+        }
     }
 
     fun onRouteClicked() {

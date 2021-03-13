@@ -50,7 +50,7 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
     }
 
     private fun showPlaceShortInfo(shortInfo: PlaceDetails) {
-        binding?.apply {
+        binding?.cardContent?.apply {
             tvPlaceAddress.text = shortInfo.formatted_address
             tvPlaceTitle.text = shortInfo.name
             tvPlaceRating.text = shortInfo.rating.toString()
