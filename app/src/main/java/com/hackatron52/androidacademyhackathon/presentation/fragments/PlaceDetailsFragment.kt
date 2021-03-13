@@ -23,7 +23,7 @@ class PlaceDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPlaceDetailBinding.bind(view)
 
-        binding?.fabFavorite?.setOnClickListener { viewModel::onFavoriteClicked }
+        binding?.fabFavorite?.setOnClickListener { viewModel.onFavoriteClicked() }
         binding?.fabRoute?.setOnClickListener { viewModel.onRouteClicked() }
     }
 
