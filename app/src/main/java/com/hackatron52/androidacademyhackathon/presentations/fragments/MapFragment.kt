@@ -15,7 +15,9 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.hackatron52.androidacademyhackathon.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MapFragment : Fragment(R.layout.fragment_map) {
 
     private var locationPermissionGranted = false
@@ -71,6 +73,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         }
     }
 
+    // TODO: probably move this out to new thread
     private fun requestNewLocationData(callback: (Location) -> Unit) {
 
         val mLocationRequest = LocationRequest.create()
@@ -87,7 +90,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                         callback(mLastLocation)
                     }
                 },
-                Looper.myLooper()
+                Looper.myLooper() ?: return
             )
 
         } catch (e: SecurityException) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AndroidAcademyHackathon</string>
+    <string name="app_name">Где посидеть?</string>
     <string name="reviews_view">Отзывы:</string>
     <string name="enter_feedback">Добавьте впечатления о заведении</string>
     <string name="btn_send_feedback">Отправить</string>
