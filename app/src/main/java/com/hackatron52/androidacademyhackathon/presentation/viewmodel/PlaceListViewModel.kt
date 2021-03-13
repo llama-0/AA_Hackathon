@@ -38,4 +38,8 @@ class PlaceListViewModel @Inject constructor() :
             refreshView()
         }
     }
+
+    fun onPlaceClicked(place: Place) {
+        executeCommand(PlaceListCommand.ShowPlaceDetail(place.id))
+    }
 }
