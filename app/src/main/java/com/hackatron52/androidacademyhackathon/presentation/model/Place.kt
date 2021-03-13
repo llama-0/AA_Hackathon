@@ -1,4 +1,4 @@
-package com.hackatron52.androidacademyhackathon.presentation.fragments.model
+package com.hackatron52.androidacademyhackathon.presentation.model
 
 class Place(
     val id: String,

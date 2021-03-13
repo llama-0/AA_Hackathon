@@ -1,4 +1,4 @@
-package com.hackatron52.androidacademyhackathon.presentation.fragments.model
+package com.hackatron52.androidacademyhackathon.presentation.model
 
 import com.hackatron52.androidacademyhackathon.presentation.model.ScreenState
 
