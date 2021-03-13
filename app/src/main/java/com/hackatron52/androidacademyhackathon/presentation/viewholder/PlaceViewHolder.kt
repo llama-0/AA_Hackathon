@@ -8,11 +8,12 @@ class PlaceViewHolder(
     val binding: ShortPlacesInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(historyDetail: Place) {
+    fun bind(place: Place, onPlaceClicked: (Place) -> Unit) {
         with(binding) {
-            tvPlaceAddress.text = historyDetail.address
-            tvPlaceTitle.text = historyDetail.name
-            tvPlaceRating.text = historyDetail.rating.toString()
+            root.setOnClickListener { onPlaceClicked(place) }
+            tvPlaceAddress.text = place.address
+            tvPlaceTitle.text = place.name
+            tvPlaceRating.text = place.rating.toString()
             // TODO: 13.03.2021 load Image with Glide
         }
     }

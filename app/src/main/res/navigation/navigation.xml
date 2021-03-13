@@ -32,4 +32,14 @@
             android:defaultValue="1"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_place_detail"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.PlaceDetailsFragment"
+        android:label="PlaceDetail"
+        tools:layout="@layout/fragment_place_detail">
+        <argument
+            android:name="placeId"
+            app:argType="string" />
+    </fragment>
 </navigation>

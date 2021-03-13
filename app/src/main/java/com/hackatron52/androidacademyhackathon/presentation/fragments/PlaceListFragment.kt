@@ -42,7 +42,7 @@ class PlaceListFragment :
     }
 
     private fun setupAdapter() {
-        adapter = PlaceAdapter()
+        adapter = PlaceAdapter(viewModel::onPlaceClicked)
         binding?.rvHistoryList?.adapter = adapter
     }
 
@@ -51,10 +51,18 @@ class PlaceListFragment :
     }
 
     override fun executeCommand(command: PlaceListCommand) {
-        super.executeCommand(command)
+        when (command) {
+            is PlaceListCommand.ShowPlaceDetail -> openPlaceDetail(command.id)
+            else -> super.executeCommand(command)
+        }
     }
 
-    fun updateList(list: List<Place>) {
+    fun openPlaceDetail(placeId: String) {
+        val args = PlaceDetailsFragmentArgs(placeId).toBundle()
+        navController.navigate(R.id.navigation_place_detail, args)
+    }
+
+    private fun updateList(list: List<Place>) {
         Log.d("TAG", "updateList: ${list.size} ")
         adapter?.submitList(list)
     }
