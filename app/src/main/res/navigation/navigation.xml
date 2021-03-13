@@ -7,21 +7,20 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.hackatron52.androidacademyhackathon.presentations.fragments.MapFragment"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.MapFragment"
         android:label="Map"
         tools:layout="@layout/fragment_map" />
 
     <!--    TODO поменять name у фрагмента как добавите фрагмент-->
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.hackatron52.androidacademyhackathon.presentations.fragments.MapFragment"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.MapFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
 
-    <!--    TODO поменять name у фрагмента как добавите фрагмент-->
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.hackatron52.androidacademyhackathon.presentations.fragments.MapFragment"
+        android:name="com.hackatron52.androidacademyhackathon.presentation.fragments.HistoryFragment"
         android:label="History"
         tools:layout="@layout/fragment_history" />
 </navigation>

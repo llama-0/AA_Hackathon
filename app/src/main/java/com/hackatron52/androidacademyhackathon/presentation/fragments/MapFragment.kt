@@ -1,4 +1,4 @@
-package com.hackatron52.androidacademyhackathon.presentations.fragments
+package com.hackatron52.androidacademyhackathon.presentation.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
