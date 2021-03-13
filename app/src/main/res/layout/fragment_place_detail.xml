@@ -46,11 +46,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@id/reviewTextView"
+        app:layout_constraintBottom_toTopOf="@id/ratingBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addressPlace"
         tools:text="Description" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionPlace"
+        app:layout_constraintBottom_toTopOf="@+id/reviewTextView"/>
 
     <TextView
         android:id="@+id/reviewTextView"
@@ -58,11 +70,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Reviews:"
+        android:text="@string/reviews_view"
         app:layout_constraintBottom_toTopOf="@id/recyclerReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionPlace" />
+        app:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerReview"

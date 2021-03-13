@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">AndroidAcademyHackathon</string>
+    <string name="app_name" translatable="false">AndroidAcademyHackathon</string>
+    <string name="reviews_view">Reviews:</string>
 </resources>
