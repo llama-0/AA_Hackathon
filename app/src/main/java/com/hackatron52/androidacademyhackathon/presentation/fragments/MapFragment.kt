@@ -205,7 +205,7 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
             googleMap.addMarker(marker)
         }
         googleMap.setOnMarkerClickListener { marker ->
-            showPlaceInfo(marker.snippet)
+            marker.snippet?.let(::showPlaceInfo)
             true
         }
     }
