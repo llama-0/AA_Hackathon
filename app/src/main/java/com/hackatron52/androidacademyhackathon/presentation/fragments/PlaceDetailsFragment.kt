@@ -21,10 +21,13 @@ class PlaceDetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPlaceDetailBinding.bind(view)
+        setHasOptionsMenu(true)
 
-        binding?.fabFavorite?.setOnClickListener { viewModel::onFavoriteClicked }
+        binding = FragmentPlaceDetailBinding.bind(view)
+        binding?.fabFavorite?.setOnClickListener { viewModel.onFavoriteClicked() }
         binding?.fabRoute?.setOnClickListener { viewModel.onRouteClicked() }
+        binding?.btnAddReview?.setOnClickListener { navController.navigate(R.id.action_navigation_place_detail_to_feedbackFragment) }
+
     }
 
     override fun onDestroyView() {
@@ -40,9 +43,9 @@ class PlaceDetailsFragment :
                     titlePlace.text = model.place?.name
                     addressPlace.text = model.place?.address
                     descriptionPlace.text = model.place?.description
+                    ratingBar.rating = model.place?.rating?.toFloat() ?: 0f
                 }
             }
-
         }
     }
 
@@ -51,4 +54,5 @@ class PlaceDetailsFragment :
             is PlaceDetailsCommand.OpenMapWithRoute -> showUnderdevelopmentMessage()
         }
     }
+
 }

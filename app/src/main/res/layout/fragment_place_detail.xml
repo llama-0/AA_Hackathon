@@ -58,11 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/reviewTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_addReview"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionPlace"
-        app:layout_constraintBottom_toTopOf="@+id/reviewTextView"/>
+        app:layout_constraintTop_toBottomOf="@id/descriptionPlace" />
 
     <TextView
         android:id="@+id/reviewTextView"
@@ -106,5 +108,15 @@
         android:src="@drawable/ic_route_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_addReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/btn_add_review"
+        app:layout_constraintStart_toEndOf="@+id/ratingBar"
+        app:layout_constraintTop_toTopOf="@+id/ratingBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

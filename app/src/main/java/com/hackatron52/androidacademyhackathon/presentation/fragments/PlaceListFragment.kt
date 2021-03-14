@@ -3,6 +3,7 @@ package com.hackatron52.androidacademyhackathon.presentation.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.FragmentHistoryBinding
 import com.hackatron52.androidacademyhackathon.presentation.adapter.PlaceAdapter
@@ -25,6 +26,9 @@ class PlaceListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as AppCompatActivity).supportActionBar
+            ?.setDisplayHomeAsUpEnabled(false)
+
         binding = FragmentHistoryBinding.bind(view)
         setupAdapter()
         showBottomNavigationView()
