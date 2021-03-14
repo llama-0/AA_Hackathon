@@ -2,8 +2,13 @@ package com.hackatron52.androidacademyhackathon.presentation.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFade
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.FragmentHistoryBinding
 import com.hackatron52.androidacademyhackathon.presentation.adapter.PlaceAdapter
@@ -24,11 +29,23 @@ class PlaceListFragment :
     private var adapter: PlaceAdapter? = null
     private var binding: FragmentHistoryBinding? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        exitTransition = MaterialElevationScale(false).apply { duration = 300 }
+        reenterTransition = MaterialElevationScale(false).apply { duration = 300 }
+        enterTransition = MaterialFade().apply { duration = 300 }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
         (requireActivity() as AppCompatActivity).supportActionBar
             ?.setDisplayHomeAsUpEnabled(false)
-
+        view.doOnPreDraw { startPostponedEnterTransition() }
         binding = FragmentHistoryBinding.bind(view)
         setupAdapter()
         showBottomNavigationView()
@@ -56,12 +73,12 @@ class PlaceListFragment :
 
     override fun executeCommand(command: PlaceListCommand) {
         when (command) {
-            is PlaceListCommand.ShowPlaceDetail -> openPlaceDetail(command.id)
+            is PlaceListCommand.ShowPlaceDetail -> openPlaceDetail(command.id, command.view)
             else -> super.executeCommand(command)
         }
     }
 
-    fun openPlaceDetail(placeId: String) {
+    fun openPlaceDetail(placeId: String, view: View) {
         val args = PlaceDetailsFragmentArgs(placeId).toBundle()
         navController.navigate(R.id.navigation_place_detail, args)
     }
