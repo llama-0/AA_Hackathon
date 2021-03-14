@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialElevationScale
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.FragmentPlaceDetailBinding
@@ -57,6 +58,10 @@ class PlaceDetailsFragment :
                     titlePlace.text = model.place?.name
                     addressPlace.text = model.place?.address
                     descriptionPlace.text = model.place?.description
+                    Glide.with(requireContext())
+                        .asBitmap()
+                        .load(model.place?.photo)
+                        .into(ivPhoto)
                     ratingBar.rating = model.place?.rating?.toFloat() ?: 0f
                 }
             }
