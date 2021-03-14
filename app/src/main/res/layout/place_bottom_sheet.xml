@@ -14,17 +14,17 @@
         android:id="@+id/short_places_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="4dp">
 
         <TextView
             android:id="@+id/tvPlaceTitle"
             android:layout_width="0dp"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fabLike"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imgPlace"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,19 +35,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/imgRating"
             app:layout_constraintStart_toEndOf="@+id/imgRating"
             app:layout_constraintTop_toTopOf="@id/imgRating"
             tools:text="7.3/10" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgPlace"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
+            android:layout_width="164dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/fabRoute"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/bottom_sheet_image_style"
             tools:srcCompat="@tools:sample/avatars" />
 
         <ImageView
@@ -55,10 +56,21 @@
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/imgPlace"
             app:layout_constraintTop_toBottomOf="@+id/tvPlaceTitle"
             app:srcCompat="@drawable/ic_star" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintBottom_toTopOf="@id/fabRoute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabRoute"

@@ -53,6 +53,10 @@ class FeedbackFragment :
         binding?.btnSend?.setOnClickListener {
             clickSaveButton()
         }
+        binding?.shortPlacesInfo?.cardContent?.tvPlaceAddress?.text = " Улица Рождественка, 3/6, стр.1"
+        binding?.shortPlacesInfo?.cardContent?.tvPlaceTitle?.text = "Эрмитаж Бар Москва"
+        binding?.shortPlacesInfo?.cardContent?.tvPlaceRating?.text = "7.1"
+        binding?.shortPlacesInfo?.cardContent?.imgPlace?.setImageResource(R.drawable.example_photo_place)
     }
 
     override fun renderView(model: FeedbackScreenState) {}

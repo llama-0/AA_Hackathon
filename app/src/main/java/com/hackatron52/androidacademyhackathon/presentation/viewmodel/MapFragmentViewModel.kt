@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.hackatron52.androidacademyhackathon.data.network.models.routing.RoutesDto
 import com.hackatron52.androidacademyhackathon.domain.DirectionsRepository
 import com.hackatron52.androidacademyhackathon.domain.Lce
@@ -34,6 +35,8 @@ class MapFragmentViewModel @Inject constructor() :
 
     private val _routeStatus = MutableLiveData<RouteStatus>()
     val routeStatus: LiveData<RouteStatus> get() = _routeStatus
+
+    var lastMarkers: List<MarkerOptions> = emptyList()
 
     suspend fun updateNearbyPlaces(
         location: Location,
