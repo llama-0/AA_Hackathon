@@ -10,7 +10,7 @@ class PlaceDetailsViewModel :
     BaseViewModel<PlaceDetailsScreenState, PlaceDetailsCommand>(initialState = PlaceDetailsScreenState()) {
 
     private val db = FirebaseDatabase.getInstance()
-    private val testData = Place("1", "Хлеб и Вино ", "http://old.leclick.ru/files/restaurants/photo/840050.jpg", " Ул Пушкина 1", 4.5, "", true)
+    private val testData = Place("1", "Хлеб и Вино ", "", " Ул Пушкина 1", 4.5, "", true)
 
     fun init(placeId: String?) {
         updateScreenState(placeId = placeId, place = testData)

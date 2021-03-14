@@ -11,6 +11,8 @@
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/example_photo_place"
         app:layout_constraintBottom_toTopOf="@id/titlePlace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,16 +75,18 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/reviews_view"
-        app:layout_constraintBottom_toTopOf="@id/recyclerReview"
+        app:layout_constraintBottom_toTopOf="@id/tvFirstReview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerReview"
+    <TextView
+        android:id="@+id/tvFirstReview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Анна: Отличное место, приятная атмосфера, очень обходительный персонал , лёгкая приятная музыка и самое главное, очень вкусная еда! Прекрасная подача, эстетично и красиво! Я в принципе отношусь к еде без фанатизма, но это, что то особенное . Мне сразу захотелось вернуться сюда ещё и не раз. Рекомендую!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/reviewTextView" />
