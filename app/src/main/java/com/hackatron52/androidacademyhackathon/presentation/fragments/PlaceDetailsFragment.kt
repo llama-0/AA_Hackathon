@@ -41,7 +41,7 @@ class PlaceDetailsFragment :
         binding?.fabFavorite?.setOnClickListener { viewModel.onFavoriteClicked() }
         binding?.fabRoute?.setOnClickListener { viewModel.onRouteClicked() }
         binding?.btnAddReview?.setOnClickListener { navController.navigate(R.id.action_navigation_place_detail_to_feedbackFragment) }
-
+        viewModel.init("1")
     }
 
     override fun onDestroyView() {
