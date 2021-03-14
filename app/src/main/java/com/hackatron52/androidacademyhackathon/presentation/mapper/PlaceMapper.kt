@@ -4,8 +4,12 @@ import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
 
 class PlaceMapper {
-    fun map(placeDetails: PlaceDetails): Place {
-        return Place(
+
+    fun mapList(placeDetails: List<PlaceDetails>): List<Place> =
+        placeDetails.map(::map)
+
+    fun map(placeDetails: PlaceDetails): Place =
+        Place(
             placeDetails.placeId,
             placeDetails.name,
             placeDetails.photos.first().photoReference,
@@ -14,5 +18,4 @@ class PlaceMapper {
             "Описания пока что нет",
             true
         )
-    }
 }
