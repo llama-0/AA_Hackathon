@@ -16,7 +16,7 @@ import com.hackatron52.androidacademyhackathon.presentation.command.PlaceListCom
 import com.hackatron52.androidacademyhackathon.presentation.fragment.BaseFragment
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
 import com.hackatron52.androidacademyhackathon.presentation.model.PlaceListScreenState
-import com.hackatron52.androidacademyhackathon.presentations.viewmodel.PlaceListViewModel
+import com.hackatron52.androidacademyhackathon.presentation.viewmodel.PlaceListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

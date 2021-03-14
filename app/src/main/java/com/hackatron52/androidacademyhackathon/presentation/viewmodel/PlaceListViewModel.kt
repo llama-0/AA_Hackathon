@@ -1,11 +1,10 @@
-package com.hackatron52.androidacademyhackathon.presentations.viewmodel
+package com.hackatron52.androidacademyhackathon.presentation.viewmodel
 
 import android.view.View
 import com.hackatron52.androidacademyhackathon.presentation.PlaceListStatus
 import com.hackatron52.androidacademyhackathon.presentation.command.PlaceListCommand
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
 import com.hackatron52.androidacademyhackathon.presentation.model.PlaceListScreenState
-import com.hackatron52.androidacademyhackathon.presentation.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
