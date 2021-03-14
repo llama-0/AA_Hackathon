@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.database.FirebaseDatabase
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.PlaceBottomSheetBinding
 import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
@@ -69,9 +68,7 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
                 dismiss()
             }
             fabLike.setOnClickListener {
-                val db = FirebaseDatabase.getInstance()
-                db.getReference("Favorites")
-                    .updateChildren(mapOf(shortInfo.placeId to shortInfo))
+                shortPlaceInfoViewModel.likePlace(shortInfo)
             }
 
             tvPlaceTitle.text = shortInfo.name
