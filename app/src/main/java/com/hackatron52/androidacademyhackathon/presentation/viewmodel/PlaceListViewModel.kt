@@ -1,5 +1,6 @@
 package com.hackatron52.androidacademyhackathon.presentations.viewmodel
 
+import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.presentation.PlaceListStatus
 import com.hackatron52.androidacademyhackathon.presentation.command.PlaceListCommand
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
@@ -13,7 +14,7 @@ class PlaceListViewModel @Inject constructor() :
     BaseViewModel<PlaceListScreenState, PlaceListCommand>(PlaceListScreenState()) {
 
     private val testData = listOf(
-        Place("1", "Хлеб и Вино ", "", " Ул Пушкина 1", 4.5, "", true),
+        Place("1", "Эрмитаж Бар Москва", "", " Улица Рождественка, 3/6, стр.1", 7.1, "Милое, уютное заведение для прекрасного вечера с друзьями", true),
         Place("2", "Кулинарная лавка", "", "проспект мира", 4.5, "", true),
         Place("3", "Coffix", "", "проспект мира", 4.5, "", true),
         Place("4", "Грузинская кухня", "", "ул Тверская", 4.5, "", true),
