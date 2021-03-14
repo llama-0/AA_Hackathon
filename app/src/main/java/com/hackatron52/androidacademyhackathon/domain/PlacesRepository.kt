@@ -32,7 +32,7 @@ class PlacesRepository(
                     .filter { it.openingHours?.openNow ?: false }
                 filteredPlaces
                     .sortedByDescending { it.rating }
-                    .subList(0, 10.coerceAtMost(places.size))
+                    .subList(0, 10.coerceAtMost(filteredPlaces.size))
             }
         }
 
