@@ -18,15 +18,17 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.domain.models.Place
+import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import com.hackatron52.androidacademyhackathon.presentation.dialog.ShortPlaceInfoDialog
 import com.hackatron52.androidacademyhackathon.presentation.viewmodel.MapFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class MapFragment : Fragment(R.layout.fragment_map) {
+class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceRouteListener {
 
     private val mapFragmentViewModel: MapFragmentViewModel by viewModels()
 
@@ -79,6 +81,27 @@ class MapFragment : Fragment(R.layout.fragment_map) {
 
     private fun initObservers() {
         lifecycleScope.launchWhenStarted {
+            mapFragmentViewModel.currentRoute.collect { lce ->
+                if (lce.isFinishedSuccessfully) {
+                    lce.content?.legs?.let { legs ->
+                        val polyline = PolylineOptions()
+                        polyline.color(ContextCompat.getColor(requireContext(), R.color.orange))
+                        legs.firstOrNull()?.steps?.forEach {
+                            polyline.add(
+                                LatLng(it.startLocation.lat, it.startLocation.lng),
+                                LatLng(it.endLocation.lat, it.endLocation.lng)
+                            )
+                        }
+                        googleMap.clear()
+                        googleMap.addMarker(MarkerOptions().position(polyline.points.last()))
+                        googleMap.addPolyline(polyline)
+                    }
+                } else {
+                    lce.error?.printStackTrace()
+                }
+            }
+        }
+        lifecycleScope.launchWhenStarted {
             mapFragmentViewModel.nearbyPlaces.collect { lce ->
                 if (lce.isFinishedSuccessfully) {
                     lce.content?.let(::showPlaces)
@@ -86,6 +109,17 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                     lce.error?.printStackTrace()
                 }
             }
+        }
+    }
+
+    override fun route(placeDetails: PlaceDetails) {
+        try {
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+                val latLng = LatLng(location.latitude, location.longitude)
+                mapFragmentViewModel.loadRoute(latLng, placeDetails.placeId)
+            }
+        } catch (e: SecurityException) {
+            Log.e("Exception: %s", e.message, e)
         }
     }
 
@@ -162,14 +196,14 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                 MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
             googleMap.addMarker(marker)
         }
-        googleMap.setOnMarkerClickListener {
-            showPlaceInfo(it.snippet)
+        googleMap.setOnMarkerClickListener { marker ->
+            showPlaceInfo(marker.snippet)
             true
         }
     }
 
     private fun showPlaceInfo(placeId: String) {
-        ShortPlaceInfoDialog.newInstance(placeId).show(parentFragmentManager, placeId)
+        ShortPlaceInfoDialog.newInstance(placeId, this).show(parentFragmentManager, placeId)
     }
 
     companion object {

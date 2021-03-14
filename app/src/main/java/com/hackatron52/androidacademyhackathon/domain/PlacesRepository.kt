@@ -29,7 +29,7 @@ class PlacesRepository(
                 ).places
 
                 places.map { placeMapper.toDomainModel(it) }
-                    .filter { it.openingHours?.openNow ?: false }
+//                    .filter { it.openingHours?.openNow ?: false }
                     .sortedByDescending { it.rating }
                     .subList(0, 10.coerceAtMost(places.size))
             }

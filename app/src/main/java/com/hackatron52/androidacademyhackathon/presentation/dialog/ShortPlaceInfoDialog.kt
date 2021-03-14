@@ -1,6 +1,7 @@
 package com.hackatron52.androidacademyhackathon.presentation.dialog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,13 @@ import kotlinx.coroutines.flow.collect
 
 class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
+    fun interface PlaceRouteListener {
+        fun route(placeDetails: PlaceDetails)
+    }
+
     private val shortPlaceInfoViewModel: ShortPlaceInfoViewModel by viewModels()
     private var binding: PlaceBottomSheetBinding? = null
+    private var listener: PlaceRouteListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +57,9 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
     private fun showPlaceShortInfo(shortInfo: PlaceDetails) {
         binding?.apply {
+            binding?.fabRoute?.setOnClickListener {
+                listener?.route(shortInfo)
+            }
             tvPlaceTitle.text = shortInfo.name
             tvPlaceRating.text = shortInfo.rating.toString()
             shortInfo.photos.firstOrNull()?.let {
@@ -62,15 +71,17 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
     }
 
     override fun onDestroy() {
+        listener = null
         binding = null
         super.onDestroy()
     }
 
     companion object {
         private const val KEY_PLACE_ID = "place_id"
-        fun newInstance(placeId: String): ShortPlaceInfoDialog {
+        fun newInstance(placeId: String, listener: PlaceRouteListener): ShortPlaceInfoDialog {
             return ShortPlaceInfoDialog().apply {
                 arguments = bundleOf(KEY_PLACE_ID to placeId)
+                this.listener = listener
             }
         }
     }

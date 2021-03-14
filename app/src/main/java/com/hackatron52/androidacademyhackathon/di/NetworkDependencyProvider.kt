@@ -2,6 +2,7 @@ package com.hackatron52.androidacademyhackathon.di
 
 import com.google.gson.Gson
 import com.hackatron52.androidacademyhackathon.BuildConfig
+import com.hackatron52.androidacademyhackathon.data.network.DirectionsApi
 import com.hackatron52.androidacademyhackathon.data.network.PlaceDetailsApi
 import com.hackatron52.androidacademyhackathon.data.network.PlacesApi
 import com.hackatron52.androidacademyhackathon.data.network.interceptors.MapsApiKeyInterceptor
@@ -11,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://maps.googleapis.com/maps/api/place/"
+private const val BASE_URL = "https://maps.googleapis.com/maps/api/"
 private const val MAPS_API_KEY = "AIzaSyAwAEbJey1aDAd-7J6xWh08gVaypu12McM"
 
 object NetworkDependencyProvider {
@@ -27,12 +28,18 @@ object NetworkDependencyProvider {
 
     private val PLACE_DETAILS_API: PlaceDetailsApi = retrofit.create(PlaceDetailsApi::class.java)
 
+    private val DIRECTIONS_API: DirectionsApi = retrofit.create(DirectionsApi::class.java)
+
     fun provideMapsApi(): PlacesApi {
         return PLACES_API
     }
 
     fun providePlaceDetailsApi(): PlaceDetailsApi {
         return PLACE_DETAILS_API
+    }
+
+    fun provideDirectionsApi(): DirectionsApi {
+        return DIRECTIONS_API
     }
 
     private fun provideOkHttpClient(): OkHttpClient {
