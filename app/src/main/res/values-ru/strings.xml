@@ -5,8 +5,9 @@
     <string name="enter_feedback">Добавьте впечатления о заведении</string>
     <string name="btn_send_feedback">Отправить</string>
     <string name="tvGreetingMessage">Привет! Поделись своими впечатлениеями о</string>
-    <string name="tvMessageTimeAgo">Вы были здесь %1$d дней назад</string>
+    <string name="tvMessageTimeAgo">Вы недавно здесь были</string>
     <string name="menu_title_map">Карта</string>
     <string name="menu_title_favorites">Избранное</string>
     <string name="menu_title_history">История</string>
+    <string name="btn_add_review">Отзыв</string>
 </resources>
