@@ -57,7 +57,6 @@ class PlaceListFragment :
     override fun executeCommand(command: PlaceListCommand) {
         when (command) {
             is PlaceListCommand.ShowPlaceDetail -> openPlaceDetail(command.id)
-            else -> super.executeCommand(command)
         }
     }
 
