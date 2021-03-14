@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBinding
 import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import com.hackatron52.androidacademyhackathon.presentation.viewmodel.ShortPlaceInfoViewModel
@@ -18,6 +20,11 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
     private val shortPlaceInfoViewModel: ShortPlaceInfoViewModel by viewModels()
     private var binding: ShortPlacesInfoBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetDialog_Rounded)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
