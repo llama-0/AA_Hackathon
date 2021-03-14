@@ -10,9 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hackatron52.androidacademyhackathon.databinding.PlaceBottomSheetBinding
 import com.hackatron52.androidacademyhackathon.R
-import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBinding
+import com.hackatron52.androidacademyhackathon.databinding.PlaceBottomSheetBinding
 import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import com.hackatron52.androidacademyhackathon.presentation.viewmodel.ShortPlaceInfoViewModel
 import kotlinx.coroutines.flow.collect
@@ -64,10 +63,14 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
     private fun showPlaceShortInfo(shortInfo: PlaceDetails) {
         binding?.apply {
-            binding?.fabRoute?.setOnClickListener {
+            fabRoute.setOnClickListener {
                 listener?.route(shortInfo)
                 dismiss()
             }
+            fabLike.setOnClickListener {
+                shortPlaceInfoViewModel.likePlace(shortInfo)
+            }
+
             tvPlaceTitle.text = shortInfo.name
             tvPlaceRating.text = shortInfo.rating.toString()
             shortInfo.photos.firstOrNull()?.let {
