@@ -132,10 +132,9 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
         val polyline = PolylineOptions()
         polyline.color(ContextCompat.getColor(requireContext(), R.color.orange))
         legs.firstOrNull()?.steps?.forEach {
-            polyline.add(
-                LatLng(it.startLocation.lat, it.startLocation.lng),
-                LatLng(it.endLocation.lat, it.endLocation.lng)
-            )
+            val start = LatLng(it.startLocation.lat, it.startLocation.lng)
+            val end = LatLng(it.endLocation.lat, it.endLocation.lng)
+            polyline.add(start, end)
         }
         googleMap.clear()
         googleMap.addMarker(MarkerOptions().position(polyline.points.last()))
