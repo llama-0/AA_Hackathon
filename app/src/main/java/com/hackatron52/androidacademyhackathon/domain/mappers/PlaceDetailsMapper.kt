@@ -8,6 +8,7 @@ class PlaceDetailsMapper(private val photoMapper: PhotoMapper) {
     fun toDomainModel(placeDetailsDto: PlaceDetailsDto): PlaceDetails {
         with(placeDetailsDto) {
             return PlaceDetails(
+                placeId,
                 adr_address,
                 formatted_address,
                 icon,

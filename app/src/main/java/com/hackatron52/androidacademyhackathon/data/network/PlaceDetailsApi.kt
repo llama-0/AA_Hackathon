@@ -5,11 +5,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 private const val DEFAULT_PLACE_DETAILS_FIELDS =
-    "name,rating,photo,adr_address,formatted_address,icon"
+    "place_id,name,rating,photo,adr_address,formatted_address,icon"
 
 interface PlaceDetailsApi {
 
-    @GET("details/json?")
+    @GET("place/details/json?")
     suspend fun getPlaceDetails(
         @Query("place_id") placeId: String,
         @Query("fields") fields: String = DEFAULT_PLACE_DETAILS_FIELDS

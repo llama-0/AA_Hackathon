@@ -1,7 +1,6 @@
 package com.hackatron52.androidacademyhackathon.domain
 
 import android.location.Location
-import android.util.Log
 import com.hackatron52.androidacademyhackathon.data.network.PlacesApi
 import com.hackatron52.androidacademyhackathon.data.repo.BaseRepository
 import com.hackatron52.androidacademyhackathon.di.NetworkDependencyProvider

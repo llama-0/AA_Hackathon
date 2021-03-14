@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hackatron52.androidacademyhackathon.databinding.PlaceBottomSheetBinding
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.ShortPlacesInfoBinding
 import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
@@ -18,8 +19,13 @@ import kotlinx.coroutines.flow.collect
 
 class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
 
+    fun interface PlaceRouteListener {
+        fun route(placeDetails: PlaceDetails)
+    }
+
     private val shortPlaceInfoViewModel: ShortPlaceInfoViewModel by viewModels()
-    private var binding: ShortPlacesInfoBinding? = null
+    private var binding: PlaceBottomSheetBinding? = null
+    private var listener: PlaceRouteListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +37,7 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return ShortPlacesInfoBinding.inflate(inflater, container, false).also {
+        return PlaceBottomSheetBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
     }
@@ -57,8 +63,11 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
     }
 
     private fun showPlaceShortInfo(shortInfo: PlaceDetails) {
-        binding?.cardContent?.apply {
-            tvPlaceAddress.text = shortInfo.formatted_address
+        binding?.apply {
+            binding?.fabRoute?.setOnClickListener {
+                listener?.route(shortInfo)
+                dismiss()
+            }
             tvPlaceTitle.text = shortInfo.name
             tvPlaceRating.text = shortInfo.rating.toString()
             shortInfo.photos.firstOrNull()?.let {
@@ -70,15 +79,17 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
     }
 
     override fun onDestroy() {
+        listener = null
         binding = null
         super.onDestroy()
     }
 
     companion object {
         private const val KEY_PLACE_ID = "place_id"
-        fun newInstance(placeId: String): ShortPlaceInfoDialog {
+        fun newInstance(placeId: String, listener: PlaceRouteListener): ShortPlaceInfoDialog {
             return ShortPlaceInfoDialog().apply {
                 arguments = bundleOf(KEY_PLACE_ID to placeId)
+                this.listener = listener
             }
         }
     }
