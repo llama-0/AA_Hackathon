@@ -1,6 +1,6 @@
 package com.hackatron52.androidacademyhackathon.presentations.viewmodel
 
-import com.hackatron52.androidacademyhackathon.R
+import android.view.View
 import com.hackatron52.androidacademyhackathon.presentation.PlaceListStatus
 import com.hackatron52.androidacademyhackathon.presentation.command.PlaceListCommand
 import com.hackatron52.androidacademyhackathon.presentation.model.Place
@@ -40,7 +40,7 @@ class PlaceListViewModel @Inject constructor() :
         }
     }
 
-    fun onPlaceClicked(place: Place) {
-        executeCommand(PlaceListCommand.ShowPlaceDetail(place.id))
+    fun onPlaceClicked(place: Place, view: View) {
+        executeCommand(PlaceListCommand.ShowPlaceDetail(place.id, view))
     }
 }

@@ -1,7 +1,10 @@
 package com.hackatron52.androidacademyhackathon.presentation.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import com.google.android.material.transition.MaterialElevationScale
 import com.hackatron52.androidacademyhackathon.R
 import com.hackatron52.androidacademyhackathon.databinding.FragmentPlaceDetailBinding
 import com.hackatron52.androidacademyhackathon.presentation.command.PlaceDetailsCommand
@@ -19,6 +22,17 @@ class PlaceDetailsFragment :
 
     private var binding: FragmentPlaceDetailBinding? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        enterTransition = MaterialElevationScale(true).apply {
+            duration = 300
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
@@ -27,7 +41,7 @@ class PlaceDetailsFragment :
         binding?.fabFavorite?.setOnClickListener { viewModel.onFavoriteClicked() }
         binding?.fabRoute?.setOnClickListener { viewModel.onRouteClicked() }
         binding?.btnAddReview?.setOnClickListener { navController.navigate(R.id.action_navigation_place_detail_to_feedbackFragment) }
-
+        viewModel.init("1")
     }
 
     override fun onDestroyView() {
