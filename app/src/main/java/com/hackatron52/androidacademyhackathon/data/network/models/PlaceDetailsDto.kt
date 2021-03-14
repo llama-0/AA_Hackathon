@@ -3,6 +3,7 @@ package com.hackatron52.androidacademyhackathon.data.network.models
 import com.google.gson.annotations.SerializedName
 
 data class PlaceDetailsDto(
+    @SerializedName("place_id") val placeId: String,
     @SerializedName("adr_address") val adr_address: String,
     @SerializedName("formatted_address") val formatted_address: String,
     @SerializedName("icon") val icon: String,

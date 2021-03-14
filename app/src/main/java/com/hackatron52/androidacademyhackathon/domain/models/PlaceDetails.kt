@@ -1,6 +1,7 @@
 package com.hackatron52.androidacademyhackathon.domain.models
 
 data class PlaceDetails(
+    val placeId: String,
     val adr_address: String,
     val formatted_address: String,
     val icon: String,
