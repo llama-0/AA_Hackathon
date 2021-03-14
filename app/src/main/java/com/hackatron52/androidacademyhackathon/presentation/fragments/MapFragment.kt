@@ -250,6 +250,6 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private const val DEFAULT_ZOOM = 17f
         private const val DEFAULT_PLACE_TYPES = "restaurant"
-        private const val DEFAULT_PLACE_RADIUS = 10000
+        private const val DEFAULT_PLACE_RADIUS = 1000
     }
 }
