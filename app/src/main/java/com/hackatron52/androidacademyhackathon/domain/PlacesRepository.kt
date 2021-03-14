@@ -28,11 +28,11 @@ class PlacesRepository(
                     radius
                 ).places
 
-                val filteredPlaces = places.map { placeMapper.toDomainModel(it) }
-                    .filter { it.openingHours?.openNow ?: false }
+                val filteredPlaces = places.filter { it.openingHours?.openNow ?: false }
                 filteredPlaces
                     .sortedByDescending { it.rating }
                     .subList(0, 10.coerceAtMost(filteredPlaces.size))
+                    .map { placeMapper.toDomainModel(it) }
             }
         }
 
