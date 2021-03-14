@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.hackatron52.androidacademyhackathon.R
+import com.hackatron52.androidacademyhackathon.data.network.models.routing.LegsDto
+import com.hackatron52.androidacademyhackathon.databinding.FragmentMapBinding
 import com.hackatron52.androidacademyhackathon.domain.models.Place
 import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import com.hackatron52.androidacademyhackathon.presentation.dialog.ShortPlaceInfoDialog
@@ -31,6 +34,8 @@ import kotlinx.coroutines.flow.collect
 class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceRouteListener {
 
     private val mapFragmentViewModel: MapFragmentViewModel by viewModels()
+
+    private var binding: FragmentMapBinding? = null
 
     private var locationPermissionGranted = false
     private lateinit var googleMap: GoogleMap
@@ -46,6 +51,7 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMapBinding.bind(requireView())
         requestLocationPermission()
         initLocationRequest()
         initObservers()
@@ -80,25 +86,20 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
     }
 
     private fun initObservers() {
-        mapFragmentViewModel.routeStatus.observe(viewLifecycleOwner, {
-
+        mapFragmentViewModel.routeStatus.observe(viewLifecycleOwner, { status ->
+            if (status != null) {
+                if (status !is MapFragmentViewModel.RouteStatus.Routing) {
+                    binding?.apply {
+                        fabCancelRoute.isVisible = false
+                        fabCancelRoute.setOnClickListener(null)
+                    }
+                }
+            }
         })
         lifecycleScope.launchWhenStarted {
             mapFragmentViewModel.currentRoute.collect { lce ->
                 if (lce.isFinishedSuccessfully) {
-                    lce.content?.legs?.let { legs ->
-                        val polyline = PolylineOptions()
-                        polyline.color(ContextCompat.getColor(requireContext(), R.color.orange))
-                        legs.firstOrNull()?.steps?.forEach {
-                            polyline.add(
-                                LatLng(it.startLocation.lat, it.startLocation.lng),
-                                LatLng(it.endLocation.lat, it.endLocation.lng)
-                            )
-                        }
-                        googleMap.clear()
-                        googleMap.addMarker(MarkerOptions().position(polyline.points.last()))
-                        googleMap.addPolyline(polyline)
-                    }
+                    showRoute(lce.content?.legs ?: emptyList())
                 } else {
                     lce.error?.printStackTrace()
                 }
@@ -124,6 +125,30 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
+        }
+    }
+
+    private fun showRoute(legs: List<LegsDto>) {
+        val polyline = PolylineOptions()
+        polyline.color(ContextCompat.getColor(requireContext(), R.color.orange))
+        legs.firstOrNull()?.steps?.forEach {
+            polyline.add(
+                LatLng(it.startLocation.lat, it.startLocation.lng),
+                LatLng(it.endLocation.lat, it.endLocation.lng)
+            )
+        }
+        googleMap.clear()
+        googleMap.addMarker(MarkerOptions().position(polyline.points.last()))
+        googleMap.addPolyline(polyline)
+        binding?.let {
+            it.fabCancelRoute.isVisible = true
+            it.fabCancelRoute.setOnClickListener {
+                mapFragmentViewModel.cancelRoute()
+                googleMap.clear()
+                mapFragmentViewModel.lastMarkers.forEach { marker ->
+                    googleMap.addMarker(marker)
+                }
+            }
         }
     }
 
@@ -198,12 +223,15 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
     }
 
     private fun showPlaces(places: List<Place>) {
+        val markers = mutableListOf<MarkerOptions>()
         places.forEach { place ->
             val placeLocation = LatLng(place.location.lat, place.location.lng)
             val marker =
                 MarkerOptions().title(place.name).position(placeLocation).snippet(place.placeID)
+            markers.add(marker)
             googleMap.addMarker(marker)
         }
+        mapFragmentViewModel.lastMarkers = markers
         googleMap.setOnMarkerClickListener { marker ->
             marker.snippet?.let(::showPlaceInfo)
             true
@@ -212,6 +240,11 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
 
     private fun showPlaceInfo(placeId: String) {
         ShortPlaceInfoDialog.newInstance(placeId, this).show(parentFragmentManager, placeId)
+    }
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     companion object {
