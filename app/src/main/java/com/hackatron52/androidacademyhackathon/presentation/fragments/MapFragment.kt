@@ -80,6 +80,9 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
     }
 
     private fun initObservers() {
+        mapFragmentViewModel.routeStatus.observe(viewLifecycleOwner, {
+
+        })
         lifecycleScope.launchWhenStarted {
             mapFragmentViewModel.currentRoute.collect { lce ->
                 if (lce.isFinishedSuccessfully) {
@@ -117,6 +120,7 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
             fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
                 val latLng = LatLng(location.latitude, location.longitude)
                 mapFragmentViewModel.loadRoute(latLng, placeDetails.placeId)
+                mapFragmentViewModel.startRoute(placeDetails)
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
@@ -144,7 +148,9 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
         ) {
             return
         }
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener(::showUserLocation)
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+            showUserLocation(location, true)
+        }
         fusedLocationProviderClient.requestLocationUpdates(
             locationRequest,
             locationCallback,
@@ -163,17 +169,19 @@ class MapFragment : Fragment(R.layout.fragment_map), ShortPlaceInfoDialog.PlaceR
         locationRequest.fastestInterval = 500
     }
 
-    private fun showUserLocation(location: Location) {
+    private fun showUserLocation(location: Location, animateZoom: Boolean = false) {
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.google_map) as? SupportMapFragment
         mapFragment?.getMapAsync { googleMap ->
             val userLocation = LatLng(location.latitude, location.longitude)
-            googleMap.animateCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    userLocation,
-                    DEFAULT_ZOOM
+            if (animateZoom) {
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        userLocation,
+                        DEFAULT_ZOOM
+                    )
                 )
-            )
+            }
             try {
                 googleMap.isMyLocationEnabled = true
             } catch (e: SecurityException) {

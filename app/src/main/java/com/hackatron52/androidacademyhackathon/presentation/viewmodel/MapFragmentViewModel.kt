@@ -1,6 +1,8 @@
 package com.hackatron52.androidacademyhackathon.presentation.viewmodel
 
 import android.location.Location
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
@@ -9,6 +11,7 @@ import com.hackatron52.androidacademyhackathon.domain.DirectionsRepository
 import com.hackatron52.androidacademyhackathon.domain.Lce
 import com.hackatron52.androidacademyhackathon.domain.PlacesRepository
 import com.hackatron52.androidacademyhackathon.domain.models.Place
+import com.hackatron52.androidacademyhackathon.domain.models.PlaceDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -29,12 +32,17 @@ class MapFragmentViewModel @Inject constructor() :
     private val _currentRoute = MutableSharedFlow<Lce<RoutesDto>>()
     val currentRoute: SharedFlow<Lce<RoutesDto>> get() = _currentRoute
 
+    private val _routeStatus = MutableLiveData<RouteStatus>()
+    val routeStatus: LiveData<RouteStatus> get() = _routeStatus
+
     suspend fun updateNearbyPlaces(
         location: Location,
         type: String,
         radius: Int
     ) {
-        _nearbyPlaces.emitAll(placesRepository.observeNearbyPlaces(location, type, radius))
+        if (routeStatus.value !is RouteStatus.Routing) {
+            _nearbyPlaces.emitAll(placesRepository.observeNearbyPlaces(location, type, radius))
+        }
     }
 
     fun loadRoute(startLocation: LatLng, endLocation: String) {
@@ -46,5 +54,23 @@ class MapFragmentViewModel @Inject constructor() :
                 )
             )
         }
+    }
+
+    fun startRoute(direction: PlaceDetails) {
+        _routeStatus.value = RouteStatus.Routing(direction)
+    }
+
+    fun finishRoute() {
+        _routeStatus.value = RouteStatus.FinishRouting
+    }
+
+    fun cancelRoute() {
+        _routeStatus.value = RouteStatus.CancelRouting
+    }
+
+    sealed class RouteStatus {
+        data class Routing(val direction: PlaceDetails) : RouteStatus()
+        object FinishRouting : RouteStatus()
+        object CancelRouting : RouteStatus()
     }
 }

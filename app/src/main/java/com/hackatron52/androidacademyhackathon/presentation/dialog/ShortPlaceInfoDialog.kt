@@ -59,6 +59,7 @@ class ShortPlaceInfoDialog : BottomSheetDialogFragment() {
         binding?.apply {
             binding?.fabRoute?.setOnClickListener {
                 listener?.route(shortInfo)
+                dismiss()
             }
             tvPlaceTitle.text = shortInfo.name
             tvPlaceRating.text = shortInfo.rating.toString()
